@@ -45,9 +45,10 @@ func (sm *SmileyMap) Lookup(name string) string {
 	// If the smiley starts with 'U+', assume it's a unicode and
 	// return it as-is.
 
-	if name[0] == 'U+' {
-		return name
-	}
+    // If the smiley starts with 'U', assume it's a unicode and return it as-is
+    if len(name) > 0 && name[0] == 'U' {
+        return name
+    }
 
 	// It doesn't look like a unicode and it's not in list,
 	// so return Vomiting as a fallback.
@@ -60,8 +61,8 @@ func (sm *SmileyMap) LookupValue(value string) string {
 			return k
 		}
 	}
-
-	return "UNKNOWN"
+	// Pass through unknown values so we can see Unicodes
+	return value
 }
 
 type Palette struct {
