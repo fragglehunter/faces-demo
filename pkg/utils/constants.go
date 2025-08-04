@@ -42,6 +42,15 @@ func (sm *SmileyMap) Lookup(name string) string {
 		return smiley
 	}
 
+	// If the smiley starts with 'U+', assume it's a unicode and
+	// return it as-is.
+
+	if name[0] == 'U+' {
+		return name
+	}
+
+	// It doesn't look like a unicode and it's not in list,
+	// so return Vomiting as a fallback.
 	return sm.smileys["Vomiting"]
 }
 
